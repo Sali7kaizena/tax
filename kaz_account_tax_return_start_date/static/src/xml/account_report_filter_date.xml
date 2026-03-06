@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
     <t t-name="kaz_account_tax_return_start_date.AccountReportFilterDate" t-inherit="account_reports.AccountReportFilterDate" t-inherit-mode="extension">
+        <xpath expr="//DropdownItem[contains(@class, 'filter_date_this_quarter_hook')]" position="attributes">
+            <attribute name="t-if">false</attribute>
+        </xpath>
+
+        <xpath expr="//DropdownItem[contains(@class, 'filter_date_range_last_quarter_hook')]" position="attributes">
+            <attribute name="t-if">false</attribute>
+        </xpath>
         <xpath expr="//t[@t-if=&quot;controller.options.date.mode === 'range'&quot;][1]/DropdownItem[last()]" position="after">
+            <div class="dropdown-divider"/>
             <DropdownItem
                 class="{ 'filter_date_range_tax_period_hook': true, 'selected': (controller.options.date.filter == 'tax_period') }"
                 onSelected="() => this.updateFilter('date.filter', 'tax_period')"
             >
-                Tax Period
+                This Tax Period
             </DropdownItem>
             <DropdownItem
                 class="{ 'filter_date_range_last_tax_period_hook': true, 'selected': (controller.options.date.filter == 'last_tax_period') }"
